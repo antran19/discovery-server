@@ -22,8 +22,14 @@ Serves the Eureka dashboard on port 8761 by default. Every other service
 `eureka.client.serviceUrl.defaultZone` in its own `application.yml` — start this one
 first.
 
+## Docker
+
+`Dockerfile` copies a pre-built jar (`mvn clean package` first, then `docker build`) —
+simpler than the old monorepo version, since there's no reactor to build from a root
+context anymore. See the `infra` repo for the docker-compose setup that runs the whole
+cluster.
+
 ## Follow-up (not done yet)
 
-- Set up this repo's own CI/CD pipeline (build, test, Docker image, push to a registry).
-- `Dockerfile` in this repo can be simplified since this is no longer a multi-module
-  reactor — a plain single-project Docker build context now works.
+- Push a built image to a registry (e.g. GHCR) from CI, instead of building it fresh
+  locally every time.
